@@ -1,21 +1,27 @@
 package com.corporated.skejac.domain.services;
 
+import com.corporated.skejac.domain.dto.LoginRequestDto;
 import com.corporated.skejac.domain.repository.UserRepository;
+import com.corporated.skejac.persistence.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
-
+    private UserRepository userRepository; // Inyecta el repositorio
     public boolean checkUserExists(String phoneNumber) {
-
         return userRepository.existsByPhoneNumber(phoneNumber);
     }
 
-    // --- PRÓXIMOS PASOS ---
-    // Aquí añadiremos la lógica para RM-29 (Authenticate)
-    // y RM-32 (Register User)
+    public boolean authenticateUser(LoginRequestDto loginRequest) {
+        Optional<UserEntity> user = userRepository.findByPhoneNumberAndRegisteredPin(
+                loginRequest.getPhoneNumber(),
+                loginRequest.getPinCode()
+        );
+        return user.isPresent();
+    }
 }
