@@ -6,6 +6,6 @@ import lombok.Data;
 public class UserRegisterRequestDto {
     private String phoneNumber;
     private String fullName;
-    private String documentId;
-    private String registeredPin;
+    private String documentId; // Coincide con el JS
+    private String pin;        // Simplificado de 'registeredPin' a 'pin'
 }

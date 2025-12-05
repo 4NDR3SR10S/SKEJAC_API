@@ -18,7 +18,7 @@ public class UserRegisterMapper {
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setFullName(dto.getFullName());
         entity.setDocumentId(dto.getDocumentId());
-        entity.setRegisteredPin(dto.getRegisteredPin());
+        entity.setRegisteredPin(dto.getPin());
         //Ponerle en cero la cuenta
         entity.setCurrentBalance(BigDecimal.ZERO);
 
