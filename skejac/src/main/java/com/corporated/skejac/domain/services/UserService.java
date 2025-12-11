@@ -1,6 +1,7 @@
 package com.corporated.skejac.domain.services;
 
 import com.corporated.skejac.domain.dto.LoginRequestDto;
+import com.corporated.skejac.domain.dto.UserProfileResponseDto;
 import com.corporated.skejac.domain.dto.UserRegisterRequestDto;
 import com.corporated.skejac.domain.repository.UserRepository;
 import com.corporated.skejac.persistence.entity.UserEntity;
@@ -38,9 +39,28 @@ public class UserService {
         newUser.setFullName(request.getFullName());
         newUser.setDocumentId(request.getDocumentId());
         newUser.setRegisteredPin(request.getPin()); // Mapeamos 'pin' del DTO a 'registeredPin' de la Entidad
-        newUser.setCurrentBalance(BigDecimal.ZERO); // Saldo inicial en 0
+        newUser.setCurrentBalance(new BigDecimal("2500000")); // Saldo inicial en 2500000
 
         userRepository.save(newUser);
         return true;
     }
+
+    public UserProfileResponseDto getUserProfile(String phoneNumber) {
+
+        Optional<UserEntity> userOpt = userRepository.findByPhoneNumber(phoneNumber);
+
+        if (userOpt.isEmpty()) {
+            return null;
+        }
+
+        UserEntity user = userOpt.get();
+
+        UserProfileResponseDto dto = new UserProfileResponseDto();
+        dto.setFullName(user.getFullName());
+        dto.setCurrentBalance(user.getCurrentBalance());
+
+        return dto;
+    }
+
+
 }
