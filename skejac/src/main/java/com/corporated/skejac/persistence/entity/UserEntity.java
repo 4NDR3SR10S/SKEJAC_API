@@ -29,6 +29,9 @@ public class UserEntity {
     @Column(name = "current_balance")
     private BigDecimal currentBalance;
 
+    @Column(name = "savings_balance")
+    private BigDecimal savingsBalance = BigDecimal.ZERO;
+
     public UserEntity() {
     }
 
